@@ -1,0 +1,318 @@
+.app {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+  color: #1c1a20;
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 2.2rem;
+}
+
+.header p {
+  margin: 4px 0 0;
+  color: #5c5766;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pill {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #f0eef2;
+  border: 1px solid #ddd9e0;
+  font-size: 0.85rem;
+}
+
+.pill-online {
+  background: #e4f5e9;
+  border-color: #9fd6ae;
+}
+
+.pill-offline {
+  background: #fdeeda;
+  border-color: #f0c48d;
+}
+
+.notice {
+  background: #f4f3ec;
+  border: 1px solid #ddd9c8;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 0 0 16px;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 800px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.editor label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.editor textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  border: 1px solid #cfccd4;
+  border-radius: 8px;
+  font: inherit;
+  resize: vertical;
+}
+
+.count {
+  color: #5c5766;
+  font-size: 0.9rem;
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 8px 0;
+}
+
+button {
+  font: inherit;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid #cfccd4;
+  background: #fff;
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+  background: #f4f3ec;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 400;
+  margin: 12px 0;
+}
+
+.check input {
+  width: 18px;
+  height: 18px;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.actions button {
+  background: #1c1a20;
+  color: #fff;
+  border-color: #1c1a20;
+}
+
+.actions button:hover:not(:disabled) {
+  background: #3a3642;
+}
+
+.error {
+  color: #a11d1d;
+}
+
+.hint {
+  color: #5c5766;
+  font-size: 0.9rem;
+}
+
+.run-info {
+  background: #eef4ff;
+  border: 1px solid #c3d4f5;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 0.9rem;
+}
+
+progress {
+  width: 100%;
+  margin: 8px 0;
+}
+
+.results {
+  border: 1px solid #e5e4e7;
+  border-radius: 12px;
+  padding: 16px;
+  min-height: 320px;
+}
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.tabs button.active {
+  background: #1c1a20;
+  color: #fff;
+  border-color: #1c1a20;
+}
+
+.summary p {
+  margin: 0 0 8px;
+}
+
+.flashcards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.flashcard {
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px;
+  text-align: center;
+}
+
+.flashcard-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #5c5766;
+}
+
+.flashcard-text {
+  font-size: 1.15rem;
+}
+
+.flashcard-hint {
+  font-size: 0.85rem;
+  color: #5c5766;
+}
+
+.flashcard-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.quiz-question {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.quiz-progress {
+  color: #5c5766;
+  font-size: 0.9rem;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.quiz-option {
+  text-align: left;
+}
+
+.quiz-option.correct {
+  background: #e4f5e9;
+  border-color: #4da56a;
+}
+
+.quiz-option.wrong {
+  background: #fdeaea;
+  border-color: #d98a8a;
+}
+
+.quiz-done {
+  text-align: center;
+  padding: 32px 0;
+}
+
+.library {
+  margin-top: 32px;
+}
+
+.library h2 {
+  margin-bottom: 8px;
+}
+
+.library ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.library li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid #e5e4e7;
+}
+
+.set-title {
+  border: none;
+  padding: 0;
+  font-weight: 600;
+  text-align: left;
+}
+
+.set-title:hover {
+  background: none;
+  text-decoration: underline;
+}
+
+.set-meta {
+  color: #5c5766;
+  font-size: 0.9rem;
+  flex: 1;
+}
+
+.sync {
+  color: #5c5766;
+  font-size: 0.9rem;
+}
+
+footer {
+  margin-top: 32px;
+  color: #5c5766;
+  font-size: 0.9rem;
+}
