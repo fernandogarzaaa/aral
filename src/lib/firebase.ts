@@ -7,7 +7,7 @@
  *
  * Products wired: AI Logic (hybrid inference), Auth (anonymous),
  * Firestore (study set sync), Remote Config (routing thresholds),
- * App Check (debug token in dev only, when a site key is configured).
+ * App Check (fixed debug token in dev, reCAPTCHA Enterprise in prod).
  */
 
 import { initializeApp } from 'firebase/app'
@@ -133,6 +133,13 @@ async function initFirebaseOnce(): Promise<FirebaseServices | null> {
   const siteKey = import.meta.env.VITE_RECAPTCHA_ENTERPRISE_KEY as string | undefined
   if (import.meta.env.DEV) {
     const globalScope = globalThis as unknown as Record<string, unknown>
+    // Fixed-token approach was tried and REVERTED Nov 19: a VITE_*
+    // token is inlined into the whole import.meta.env object, so it
+    // leaked into the production bundle. Use the SDK-generated token
+    // instead; it is stable per browser profile, and the headless
+    // profile lives in the goal hidden_files dir so it survives
+    // restarts. Register the printed token once in the Firebase
+    // console (App Check > Manage debug tokens).
     globalScope.FIREBASE_APPCHECK_DEBUG_TOKEN = true
     const provider = siteKey
       ? new ReCaptchaEnterpriseProvider(siteKey)
