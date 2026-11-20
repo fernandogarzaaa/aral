@@ -29,10 +29,16 @@ routing logic lives in `src/lib/router.ts` and is fully unit tested.
 
 ## Demo mode
 
-No Firebase project is configured yet. Without config, Aral runs on a
-built-in demo provider that builds deterministic study material from
-your notes. The UI says Demo mode clearly. The full study loop works:
-summary, flashcards, quiz, and the saved library.
+Without your own Firebase config, Aral runs on a built-in demo provider
+that builds deterministic study material from your notes. The UI says
+Demo mode clearly. The full study loop works: summary, flashcards,
+quiz, and the saved library.
+
+The shipped deployment is wired to a real Firebase project
+(`aral-hybrid-ai`, free Spark plan) with Firebase AI Logic, App Check,
+Anonymous Auth, Firestore, and Remote Config. That path is verified
+end to end: a real Gemini summary renders through the cloud fallback,
+and the UI reports the honest source for every run.
 
 ## Setup
 
