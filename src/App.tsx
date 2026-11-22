@@ -10,6 +10,7 @@ import {
   DEFAULT_SETTINGS,
   getServices,
   initFirebase,
+  isFirebaseConfigured,
 } from './lib/firebase'
 import type { RoutingSettings } from './lib/firebase'
 import {
@@ -65,6 +66,12 @@ export default function App() {
   const [preferOnDevice, setPreferOnDevice] = useState(true)
   const [provider, setProvider] = useState<InferenceProvider>(() => new MockProvider())
   const [firebaseReady, setFirebaseReady] = useState(false)
+  // True only while config exists and initFirebase has not settled yet.
+  // Without it the first paint wrongly claims demo mode on a configured
+  // build, because the provider starts as the mock until init resolves.
+  const [firebaseConnecting, setFirebaseConnecting] = useState(() =>
+    isFirebaseConfigured(),
+  )
   const [signedIn, setSignedIn] = useState(false)
   const [settings, setSettings] = useState<RoutingSettings>(DEFAULT_SETTINGS)
   const [deviceState, setDeviceState] = useState<DeviceState>('unknown')
@@ -100,13 +107,16 @@ export default function App() {
     let cancelled = false
     initFirebase()
       .then((services) => {
-        if (cancelled || services === null) return
+        if (cancelled) return
+        setFirebaseConnecting(false)
+        if (services === null) return
         setProvider(services.provider)
         setSettings(services.settings)
         setFirebaseReady(true)
         setSignedIn(services.user !== null)
       })
       .catch((error: unknown) => {
+        if (!cancelled) setFirebaseConnecting(false)
         console.warn('Firebase init failed. Demo mode stays on.', error)
       })
     return () => {
@@ -246,9 +256,13 @@ export default function App() {
           <span className={`pill ${online ? 'pill-online' : 'pill-offline'}`}>
             {online ? 'Online' : 'Offline'}
           </span>
-          <span className="pill">{provider.label}</span>
+          <span className="pill">
+            {firebaseConnecting ? 'Connecting…' : provider.label}
+          </span>
           {firebaseReady ? (
             <span className="pill">Firebase connected</span>
+          ) : firebaseConnecting ? (
+            <span className="pill">Connecting…</span>
           ) : (
             <span className="pill">Demo mode</span>
           )}
@@ -256,7 +270,7 @@ export default function App() {
         </div>
       </header>
 
-      {!firebaseReady && (
+      {!firebaseReady && !firebaseConnecting && (
         <p className="notice">
           Demo mode is on. No Firebase project is configured yet, so results
           come from a built-in demo provider. Add your Firebase keys to a .env
@@ -315,7 +329,7 @@ export default function App() {
             </progress>
           )}
           {deviceError !== null && <p className="error">{deviceError}</p>}
-          {!canPrepareModel && provider.initializeDeviceModel === undefined && (
+          {!firebaseConnecting && !canPrepareModel && provider.initializeDeviceModel === undefined && (
             <p className="hint">
               Model preparation needs Firebase. Demo mode has no model to download.
             </p>
