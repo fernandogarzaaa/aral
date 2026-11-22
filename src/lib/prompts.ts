@@ -6,9 +6,10 @@
 
 export function buildSummaryPrompt(notes: string): string {
   return [
-    'Summarize the study notes below in short bullet points.',
-    'Keep every fact from the notes. Add no new facts.',
-    'Use plain words. Keep each bullet to one sentence.',
+    'Summarize the study notes below in a few short bullet points.',
+    'Condense: merge related facts into one bullet and paraphrase in your own words. Do not restate each source sentence as its own bullet.',
+    'Cover every key fact from the notes. Add no new facts.',
+    'Use plain words. Keep each bullet to one sentence. At most 5 bullets.',
     '',
     '--- NOTES ---',
     notes.trim(),
